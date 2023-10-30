@@ -75,9 +75,14 @@ export default function App() {
     axiosWithAuth().get(articlesUrl)
     .then(res => {
       console.log(res)
+      setArticles(res.data.articles)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
     })
     .catch(err => {
       console.log(err)
+      redirectToLogin()
+      setSpinnerOn(false)
     })
   }
 
@@ -114,7 +119,7 @@ export default function App() {
           <Route path="articles" element={
             <>
               <ArticleForm />
-              <Articles />
+              <Articles getArticles={getArticles} />
             </>
           } />
         </Routes>
