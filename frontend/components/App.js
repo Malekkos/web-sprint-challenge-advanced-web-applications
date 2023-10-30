@@ -57,6 +57,7 @@ export default function App() {
     })
     .catch(res => {
       console.log(res)
+      setSpinnerOn(false)
     })
 
   }
@@ -91,6 +92,19 @@ export default function App() {
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
+    setMessage("")
+    setSpinnerOn(true)
+    axiosWithAuth().post(articlesUrl, article) /* expecting a title, text and a topic from article */
+    .then(res => {
+      console.log(res)
+      setArticles(...articles, res.data.article)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log(err)
+      setSpinnerOn(false)
+    })
   }
 
   const updateArticle = ({ article_id, article }) => {
@@ -118,7 +132,7 @@ export default function App() {
           <Route path="/" element={<LoginForm login={login} />} />
           <Route path="articles" element={
             <>
-              <ArticleForm />
+              <ArticleForm postArticle={postArticle} />
               <Articles getArticles={getArticles} articles={articles} />
             </>
           } />
