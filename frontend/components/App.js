@@ -119,7 +119,7 @@ export default function App() {
           <Route path="articles" element={
             <>
               <ArticleForm />
-              <Articles getArticles={getArticles} />
+              <Articles getArticles={getArticles} articles={articles} />
             </>
           } />
         </Routes>
