@@ -17,7 +17,9 @@ export default function App() {
   const [articles, setArticles] = useState([])
   const [currentArticleId, setCurrentArticleId] = useState()
   const [spinnerOn, setSpinnerOn] = useState(false)
-
+  const [currentArticle, setCurrentArticle] = useState()
+  // console.log(articles)
+  console.log(currentArticleId)
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate()
   const redirectToLogin = () => { 
@@ -49,7 +51,7 @@ export default function App() {
     setSpinnerOn(true)
     axios.post(loginUrl, {username, password})
     .then(res => {
-      console.log(res)
+      // console.log(res)
       localStorage.setItem("token", res.data.token)
       setMessage(res.data.message)
       redirectToArticles()
@@ -75,7 +77,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().get(articlesUrl)
     .then(res => {
-      console.log(res)
+      // console.log(res)
       setArticles(res.data.articles)
       setMessage(res.data.message)
       setSpinnerOn(false)
@@ -97,7 +99,7 @@ export default function App() {
     axiosWithAuth().post(articlesUrl, article) /* expecting a title, text and a topic from article */
     .then(res => {
       console.log(res)
-      setArticles(...articles, res.data.article)
+      setArticles(...articles, {article: res.data.article})
       setMessage(res.data.message)
       setSpinnerOn(false)
     })
@@ -110,6 +112,19 @@ export default function App() {
   const updateArticle = ({ article_id, article }) => {
     // ✨ implement
     // You got this!
+    console.log("updating")
+    console.log(article_id)
+    console.log(article)
+    setSpinnerOn(true)
+    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, currentArticle)
+    .then(res => {
+      console.log(res)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log(err)
+      setSpinnerOn(false)
+    })
   }
 
   const deleteArticle = article_id => {
@@ -132,8 +147,8 @@ export default function App() {
           <Route path="/" element={<LoginForm login={login} />} />
           <Route path="articles" element={
             <>
-              <ArticleForm postArticle={postArticle} />
-              <Articles getArticles={getArticles} articles={articles} />
+              <ArticleForm postArticle={postArticle} updateArticle={updateArticle} currentArticle={currentArticle} setCurrentArticle={setCurrentArticle} setCurrentArticleId={setCurrentArticleId} />
+              <Articles getArticles={getArticles} articles={articles} setCurrentArticle={setCurrentArticle} currentArticleId={currentArticleId} setCurrentArticleId={setCurrentArticleId} />
             </>
           } />
         </Routes>
