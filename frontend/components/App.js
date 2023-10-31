@@ -13,13 +13,14 @@ const loginUrl = 'http://localhost:9000/api/login'
 
 export default function App() {
   // ✨ MVP can be achieved with these states
+  
   const [message, setMessage] = useState('')
   const [articles, setArticles] = useState([])
   const [currentArticleId, setCurrentArticleId] = useState()
   const [spinnerOn, setSpinnerOn] = useState(false)
   const [currentArticle, setCurrentArticle] = useState()
-  // console.log(articles)
-  console.log(currentArticleId)
+
+
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate()
   const redirectToLogin = () => { 
@@ -98,7 +99,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().post(articlesUrl, article) /* expecting a title, text and a topic from article */
     .then(res => {
-      console.log(res)
+      // console.log(res)
       setArticles(...articles, {article: res.data.article})
       setMessage(res.data.message)
       setSpinnerOn(false)
@@ -112,11 +113,9 @@ export default function App() {
   const updateArticle = (article_id, article) => {
     // ✨ implement
     // You got this!
-    console.log( " article ", article)
     setSpinnerOn(true)
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
-      console.log(res)
       setArticles(...articles, res.data.article)
       setSpinnerOn(false)
       setMessage(res.data.message)
