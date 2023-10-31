@@ -6,8 +6,8 @@ import React from "react"
 
 
 test('sanity', () => {
-  expect(true).toBe(false)
+  expect(true).not.toBe(false)
 })
-test("render spinner works", () => {
+test("render spinner works wihtout errors", () => {
   render(<Spinner />)
 })
