@@ -6,13 +6,16 @@ const initialFormValues = { title: '', text: '', topic: '' }
 export default function ArticleForm(props) {
   const [values, setValues] = useState(initialFormValues)
   // ✨ where are my props? Destructure them here
+
+  
   const postArticle = props.postArticle
   const updateArticle = props.updateArticle
   const setCurrentArticleId = props.setCurrentArticleId
   const setCurrentArticle = props.setCurrentArticle
   const currentArticleId = props.currentArticleId
   const currentArticle = props.currentArticle
-  console.log("article Form:", currentArticleId)
+
+
   useEffect(() => {
     // ✨ implement
     // Every time the `currentArticle` prop changes, we should check it for truthiness:
@@ -36,7 +39,6 @@ export default function ArticleForm(props) {
     // We must submit a new post or update an existing one,
     // depending on the truthyness of the `currentArticle` prop.
     if (currentArticle !== undefined) {
-      console.log("The articleId in the onSubmit",currentArticleId,"The values in the onSubmit", values)
       updateArticle(currentArticleId, values)
     } else {
       postArticle(values)
