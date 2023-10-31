@@ -133,7 +133,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
     .then(res => {
-      console.log(res)
+      // console.log(res)
       setMessage(res.data.message)
       setSpinnerOn(false)
     })
