@@ -19,10 +19,6 @@ export default function Articles(props) {
     // ✨ grab the articles here, on first render only
     getArticles()
   }, [])
-  const onClick = (event) => {
-    console.log(event)
-    setCurrentArticleId
-  }
   return (
     // ✨ fix the JSX: replace `Function.prototype` with actual functions
     // and use the articles prop to generate articles

@@ -120,6 +120,8 @@ export default function App() {
       setArticles(...articles, res.data.article)
       setSpinnerOn(false)
       setMessage(res.data.message)
+      setCurrentArticle(undefined)
+      setCurrentArticleId(undefined)
     })
     .catch(err => {
       console.log(err)
