@@ -109,17 +109,17 @@ export default function App() {
     })
   }
 
-  const updateArticle = ({ article_id, article }) => {
+  const updateArticle = (article_id, article) => {
     // ✨ implement
     // You got this!
-    console.log("updating")
-    console.log(article_id)
-    console.log(article)
+    console.log( " article ", article)
     setSpinnerOn(true)
-    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, currentArticle)
+    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
       console.log(res)
+      setArticles(...articles, res.data.article)
       setSpinnerOn(false)
+      setMessage(res.data.message)
     })
     .catch(err => {
       console.log(err)
@@ -147,7 +147,7 @@ export default function App() {
           <Route path="/" element={<LoginForm login={login} />} />
           <Route path="articles" element={
             <>
-              <ArticleForm postArticle={postArticle} updateArticle={updateArticle} currentArticle={currentArticle} setCurrentArticle={setCurrentArticle} setCurrentArticleId={setCurrentArticleId} />
+              <ArticleForm postArticle={postArticle} updateArticle={updateArticle} currentArticleId={currentArticleId} currentArticle={currentArticle} setCurrentArticle={setCurrentArticle} setCurrentArticleId={setCurrentArticleId} />
               <Articles getArticles={getArticles} articles={articles} setCurrentArticle={setCurrentArticle} currentArticleId={currentArticleId} setCurrentArticleId={setCurrentArticleId} />
             </>
           } />
