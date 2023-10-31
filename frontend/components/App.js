@@ -13,7 +13,7 @@ const loginUrl = 'http://localhost:9000/api/login'
 
 export default function App() {
   // ✨ MVP can be achieved with these states
-  
+
   const [message, setMessage] = useState('')
   const [articles, setArticles] = useState([])
   const [currentArticleId, setCurrentArticleId] = useState()
@@ -130,6 +130,17 @@ export default function App() {
 
   const deleteArticle = article_id => {
     // ✨ implement
+    setSpinnerOn(true)
+    axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
+    .then(res => {
+      console.log(res)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log(err)
+      setSpinnerOn(false)
+    })
   }
 
   return (
@@ -149,7 +160,7 @@ export default function App() {
           <Route path="articles" element={
             <>
               <ArticleForm postArticle={postArticle} updateArticle={updateArticle} currentArticleId={currentArticleId} currentArticle={currentArticle} setCurrentArticle={setCurrentArticle} setCurrentArticleId={setCurrentArticleId} />
-              <Articles getArticles={getArticles} articles={articles} setCurrentArticle={setCurrentArticle} currentArticleId={currentArticleId} setCurrentArticleId={setCurrentArticleId} />
+              <Articles getArticles={getArticles} articles={articles} deleteArticle={deleteArticle} setCurrentArticle={setCurrentArticle} currentArticleId={currentArticleId} setCurrentArticleId={setCurrentArticleId} />
             </>
           } />
         </Routes>

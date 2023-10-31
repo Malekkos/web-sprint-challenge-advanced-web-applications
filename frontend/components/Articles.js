@@ -10,6 +10,7 @@ export default function Articles(props) {
   const setCurrentArticleId = props.setCurrentArticleId
   const currentArticleId = props.currentArticleId
   const setCurrentArticle = props.setCurrentArticle
+  const deleteArticle = props.deleteArticle
 
 
   // ✨ implement conditional logic: if no token exists
@@ -24,7 +25,7 @@ export default function Articles(props) {
     // ✨ grab the articles here, on first render only
     getArticles()
   }, [])
-  
+
   return (
     // ✨ fix the JSX: replace `Function.prototype` with actual functions
     // and use the articles prop to generate articles
@@ -43,7 +44,7 @@ export default function Articles(props) {
                 </div>
                 <div>
                   <button disabled={currentArticleId ? true : false} onClick={() => (setCurrentArticleId(art.article_id), setCurrentArticle(art))}>Edit</button>
-                  <button disabled={currentArticleId ? true : false} onClick={Function.prototype}>Delete</button>
+                  <button disabled={currentArticleId ? true : false} onClick={() => deleteArticle(art.article_id)}>Delete</button>
                 </div>
               </div>
             )
