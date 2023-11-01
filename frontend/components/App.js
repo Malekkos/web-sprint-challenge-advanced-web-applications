@@ -78,7 +78,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().get(articlesUrl)
     .then(res => {
-      // console.log(res)
+      console.log(res)
       setArticles(res.data.articles)
       setMessage(res.data.message)
       setSpinnerOn(false)
@@ -86,6 +86,7 @@ export default function App() {
     .catch(err => {
       console.log(err)
       redirectToLogin()
+      setMessage(err.response.data.message)
       setSpinnerOn(false)
     })
   }
@@ -100,8 +101,14 @@ export default function App() {
     axiosWithAuth().post(articlesUrl, article) /* expecting a title, text and a topic from article */
     .then(res => {
       // console.log(res)
-      setArticles(...articles, {article: res.data.article})
+      const newArticle = [...articles]
+      if(res.data.article) {
+        newArticle.push(res.data.article)
+      }
+      setArticles(newArticle)
       setMessage(res.data.message)
+      setCurrentArticle(undefined)
+      setCurrentArticleId(undefined)
       setSpinnerOn(false)
     })
     .catch(err => {
@@ -113,10 +120,22 @@ export default function App() {
   const updateArticle = (article_id, article) => {
     // ✨ implement
     // You got this!
+    // console.log(article)
+    // article.map()
+
     setSpinnerOn(true)
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
-      setArticles(...articles, res.data.article)
+      console.log(res)
+      const updatedArticle = []
+      for (let i = 0; i < articles.length; i++) {
+        if(articles[i].article_id === article.article_id) {
+          updatedArticle.push(res.data.article)
+        } else {
+          updatedArticle.push(articles[i])
+        }
+      }
+      setArticles(updatedArticle)
       setSpinnerOn(false)
       setMessage(res.data.message)
       setCurrentArticle(undefined)
@@ -133,8 +152,15 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
     .then(res => {
-      // console.log(res)
+      console.log(res)
+      const deleteArticle = []
+      for (let i = 0; i < articles.length; i++) {
+        if(articles[i].article_id !== article_id) {
+          deleteArticle.push(articles[i])
+        }
+      }
       setMessage(res.data.message)
+      setArticles(deleteArticle)
       setSpinnerOn(false)
     })
     .catch(err => {
