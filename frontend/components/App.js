@@ -30,6 +30,9 @@ export default function App() {
     navigate("/articles")
    }
 
+  function ProtectedRoute() {
+    redirectToLogin()
+  }
   const logout = () => {
     // ✨ implement
     // If a token is in local storage it should be removed,
@@ -183,12 +186,12 @@ export default function App() {
         </nav>
         <Routes>
           <Route path="/" element={<LoginForm login={login} />} />
-          <Route path="articles" element={
+          <Route path="articles" element={ !localStorage.getItem("token") ? <><ProtectedRoute /></> :
             <>
               <ArticleForm postArticle={postArticle} updateArticle={updateArticle} currentArticleId={currentArticleId} currentArticle={currentArticle} setCurrentArticle={setCurrentArticle} setCurrentArticleId={setCurrentArticleId} />
               <Articles getArticles={getArticles} articles={articles} deleteArticle={deleteArticle} setCurrentArticle={setCurrentArticle} currentArticleId={currentArticleId} setCurrentArticleId={setCurrentArticleId} />
             </>
-          } />
+           }/>
         </Routes>
         <footer>Bloom Institute of Technology 2022</footer>
       </div>
