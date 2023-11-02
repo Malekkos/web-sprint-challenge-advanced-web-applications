@@ -14,7 +14,10 @@ export default function ArticleForm(props) {
   const setCurrentArticle = props.setCurrentArticle
   const currentArticleId = props.currentArticleId
   const currentArticle = props.currentArticle
-
+  
+  if(localStorage.getItem("token") == "") {
+    Navigate("/")
+  }
 
   useEffect(() => {
     // ✨ implement

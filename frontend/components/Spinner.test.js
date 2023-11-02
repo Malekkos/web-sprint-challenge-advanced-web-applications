@@ -13,7 +13,7 @@ test("render spinner works wihtout errors", () => {
 test("render spinner with a passed prop of 'on' as 'true', should display said spinner as well as the text 'Please wait...' ", () => {
   const {rerender} = render(<Spinner on={true} />)
   const text = screen.queryByText("Please wait...")
-  console.log(text.id)
+  // console.log(text.id)
   expect(text).toBeTruthy()
   rerender(<Spinner on={false} />)
   expect(screen.queryByText("Please wait...")).toBeFalsy()
