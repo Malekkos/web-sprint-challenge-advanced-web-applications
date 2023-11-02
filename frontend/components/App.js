@@ -78,7 +78,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().get(articlesUrl)
     .then(res => {
-      console.log(res)
+      // console.log(res)
       setArticles(res.data.articles)
       setMessage(res.data.message)
       setSpinnerOn(false)
@@ -126,7 +126,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
-      console.log(res)
+      // console.log(res)
       const updatedArticle = []
       for (let i = 0; i < articles.length; i++) {
         if(articles[i].article_id === article.article_id) {
@@ -152,7 +152,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`)
     .then(res => {
-      console.log(res)
+      // console.log(res)
       const deleteArticle = []
       for (let i = 0; i < articles.length; i++) {
         if(articles[i].article_id !== article_id) {

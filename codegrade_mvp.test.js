@@ -71,7 +71,7 @@ describe('Advanced Applications', () => {
         - Review how to implement protected routes using an authentication token and redirect users.`, () => {
       fireEvent.click(articlesLink())
       expect(titleInput()).not.toBeInTheDocument()
-      expect(usernameInput()).toBeNull()
+      expect(usernameInput()).toBeInTheDocument()
     })
     test(`[3] Filling out the login form and submitting
         - article titles, texts, topics render on the page
