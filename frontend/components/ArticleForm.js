@@ -63,7 +63,7 @@ export default function ArticleForm(props) {
         maxLength={50}
         onChange={onChange}
         value={values.title}
-        placeholder="Enter title"
+        placeholder={localStorage.getItem("token") ? "Enter title" : ""}
         id="title"
       />
       <textarea
